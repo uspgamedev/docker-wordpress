@@ -2,8 +2,9 @@
 
 set -e
 
-/entrypoint.sh
+/entrypoint.sh $@
 
+cd /var/www/html
 if ! grep -q WP_HOME wp-config.php; then
     mv wp-config.php wp-config_underwork.php
     awk '/^\/\*.*stop editing.*\*\/$/ && c == 0 { c = 1; system("cat") } { print }' wp-config_underwork.php > wp-config.php <<'EOPHP'
