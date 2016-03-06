@@ -1,13 +1,10 @@
 --- entrypoint.sh	2016-03-05 21:07:15.787453385 -0300
-+++ modified_entrypoint.sh	2016-03-05 21:07:07.891642666 -0300
-@@ -75,6 +75,10 @@
- if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
- 	$_SERVER['HTTPS'] = 'on';
- }
-+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-+	define('WP_HOME', $_SERVER['HTTP_X_FORWARDED_PROTO'] . '//' . $_SERVER['HTTP_HOST'] . $_SERVER['HTTP_X_PROXY_PATH']);
-+	define('WP_SITEURL', $_SERVER['HTTP_X_FORWARDED_PROTO'] . '//' . $_SERVER['HTTP_HOST'] . $_SERVER['HTTP_X_PROXY_PATH']);
-+}
++++ modified_entrypoint.sh	2016-03-06 01:26:22.866783181 -0300
+@@ -107,6 +107,7 @@
+ 	set_config 'DB_USER' "$WORDPRESS_DB_USER"
+ 	set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
+ 	set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
++	set_config 'WP_CONTENT_DIR' "/var/www/wp-content"
  
- EOPHP
- 		chown www-data:www-data wp-config.php
+ 	# allow any of these "Authentication Unique Keys and Salts." to be specified via
+ 	# environment variables with a "WORDPRESS_" prefix (ie, "WORDPRESS_AUTH_KEY")

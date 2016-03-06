@@ -75,10 +75,6 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
 	$_SERVER['HTTPS'] = 'on';
 }
-if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-	define('WP_HOME', $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['HTTP_X_PROXY_PATH']);
-	define('WP_SITEURL', $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['HTTP_X_PROXY_PATH']);
-}
 
 EOPHP
 		chown www-data:www-data wp-config.php
@@ -111,6 +107,7 @@ EOPHP
 	set_config 'DB_USER' "$WORDPRESS_DB_USER"
 	set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
 	set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
+	set_config 'WP_CONTENT_DIR' "/var/www/wp-content"
 
 	# allow any of these "Authentication Unique Keys and Salts." to be specified via
 	# environment variables with a "WORDPRESS_" prefix (ie, "WORDPRESS_AUTH_KEY")
