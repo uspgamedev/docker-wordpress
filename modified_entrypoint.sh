@@ -74,9 +74,8 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 // see also http://codex.wordpress.org/Administration_Over_SSL#Using_a_Reverse_Proxy
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
 	$_SERVER['HTTPS'] = 'on';
-
-    define( 'WP_CONTENT_DIR', dirname(__FILE__) . 'wp-content' );
 }
+define( 'WP_CONTENT_DIR', dirname(__FILE__) . 'wp-content' );
 
 EOPHP
 		chown www-data:www-data wp-config.php
