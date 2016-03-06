@@ -1,0 +1,13 @@
+--- entrypoint.sh	2016-01-08 18:00:06.000000000 -0200
++++ modified_entrypoint.sh	2016-03-05 21:04:10.035906375 -0300
+@@ -75,6 +75,10 @@
+ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+ 	$_SERVER['HTTPS'] = 'on';
+ }
++if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
++	define('WP_HOME', $_SERVER['HTTP_X_FORWARDED_PROTO'] . '//' . $_SERVER['HTTP_HOST'] . $_SERVER['HTTP_X_PROXY_PATH']);
++    define('WP_SITEURL', $_SERVER['HTTP_X_FORWARDED_PROTO'] . '//' . $_SERVER['HTTP_HOST'] . $_SERVER['HTTP_X_PROXY_PATH']);
++}
+ 
+ EOPHP
+ 		chown www-data:www-data wp-config.php
