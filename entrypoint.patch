@@ -1,6 +1,15 @@
 --- entrypoint.sh	2016-03-05 21:07:15.787453385 -0300
-+++ modified_entrypoint.sh	2016-03-06 01:26:22.866783181 -0300
-@@ -107,6 +107,7 @@
++++ modified_entrypoint.sh	2016-03-06 01:45:30.436363929 -0300
+@@ -74,6 +74,8 @@
+ // see also http://codex.wordpress.org/Administration_Over_SSL#Using_a_Reverse_Proxy
+ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+ 	$_SERVER['HTTPS'] = 'on';
++
++    define( 'WP_CONTENT_DIR', dirname(__FILE__) . 'wp-content' );
+ }
+ 
+ EOPHP
+@@ -107,6 +109,7 @@
  	set_config 'DB_USER' "$WORDPRESS_DB_USER"
  	set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
  	set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
