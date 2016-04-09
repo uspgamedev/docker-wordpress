@@ -1,6 +1,16 @@
 --- entrypoint.sh	2016-03-05 21:07:15.787453385 -0300
-+++ modified_entrypoint.sh	2016-03-06 01:47:23.925882440 -0300
-@@ -75,6 +75,7 @@
++++ modified_entrypoint.sh	2016-04-09 15:29:28.884466762 -0300
+@@ -2,6 +2,9 @@
+ set -e
+ 
+ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
++
++    source /host/secrets.sh
++
+ 	if [ -n "$MYSQL_PORT_3306_TCP" ]; then
+ 		if [ -z "$WORDPRESS_DB_HOST" ]; then
+ 			WORDPRESS_DB_HOST='mysql'
+@@ -75,6 +78,7 @@
  if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
  	$_SERVER['HTTPS'] = 'on';
  }
@@ -8,7 +18,7 @@
  
  EOPHP
  		chown www-data:www-data wp-config.php
-@@ -107,6 +108,7 @@
+@@ -107,6 +111,7 @@
  	set_config 'DB_USER' "$WORDPRESS_DB_USER"
  	set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
  	set_config 'DB_NAME' "$WORDPRESS_DB_NAME"

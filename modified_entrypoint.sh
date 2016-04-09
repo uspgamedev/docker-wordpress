@@ -2,6 +2,9 @@
 set -e
 
 if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
+
+    source /host/secrets.sh
+
 	if [ -n "$MYSQL_PORT_3306_TCP" ]; then
 		if [ -z "$WORDPRESS_DB_HOST" ]; then
 			WORDPRESS_DB_HOST='mysql'
