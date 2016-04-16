@@ -3,6 +3,7 @@ FROM wordpress
 RUN apt-get update \
     && apt-get install \
         patch \
+        ssmtp \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
