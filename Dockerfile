@@ -1,7 +1,7 @@
 FROM wordpress
 
 RUN apt-get update \
-    && apt-get install \
+    && apt-get install -y --no-install-recommends \
         patch \
         ssmtp \
     && apt-get clean \
