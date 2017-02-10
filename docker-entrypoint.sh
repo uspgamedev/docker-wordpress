@@ -25,9 +25,6 @@ file_env() {
 
 if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 	if ! [ -e index.php -a -e wp-includes/version.php ]; then
-
-        source /host/secrets.sh
-
 		echo >&2 "WordPress not found in $PWD - copying now..."
 		if [ "$(ls -A)" ]; then
 			echo >&2 "WARNING: $PWD is not empty - press Ctrl+C now if this is an error!"
@@ -116,7 +113,6 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
 	$_SERVER['HTTPS'] = 'on';
 }
-define( 'WP_CONTENT_DIR', dirname(__FILE__) . 'wp-content' );
 
 EOPHP
 			chown www-data:www-data wp-config.php
@@ -149,7 +145,6 @@ EOPHP
 		set_config 'DB_USER' "$WORDPRESS_DB_USER"
 		set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
 		set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
-		set_config 'WP_CONTENT_DIR' "/var/www/wp-content"
 
 		for unique in "${uniqueEnvs[@]}"; do
 			uniqVar="WORDPRESS_$unique"
