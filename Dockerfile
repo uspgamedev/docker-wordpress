@@ -19,5 +19,5 @@ RUN a2enconf wp-content.conf
 
 # Apply our patches to the upstream entrypoint.sh
 ADD entrypoint.patch /entrypoint.patch
-RUN patch /docker-entrypoint.sh /entrypoint.patch
+RUN patch /usr/local/bin/docker-entrypoint.sh /entrypoint.patch
 
