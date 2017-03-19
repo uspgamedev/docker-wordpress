@@ -1,16 +1,15 @@
---- docker-entrypoint.sh	2017-02-10 21:51:38.140153930 -0200
-+++ modified_entrypoint.sh	2017-02-10 21:57:56.659099854 -0200
-@@ -25,6 +25,9 @@
+--- docker-entrypoint.sh	2017-02-10 22:01:02.954643753 -0200
++++ modified_entrypoint.sh	2017-03-18 21:30:52.123441158 -0300
+@@ -24,6 +24,8 @@
+ }
  
  if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
++    source /host/secrets.sh
++
  	if ! [ -e index.php -a -e wp-includes/version.php ]; then
-+
-+        source /host/secrets.sh
-+
  		echo >&2 "WordPress not found in $PWD - copying now..."
  		if [ "$(ls -A)" ]; then
- 			echo >&2 "WARNING: $PWD is not empty - press Ctrl+C now if this is an error!"
-@@ -113,6 +116,7 @@
+@@ -113,6 +115,7 @@
  if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
  	$_SERVER['HTTPS'] = 'on';
  }
@@ -18,7 +17,7 @@
  
  EOPHP
  			chown www-data:www-data wp-config.php
-@@ -145,6 +149,7 @@
+@@ -145,6 +148,7 @@
  		set_config 'DB_USER' "$WORDPRESS_DB_USER"
  		set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
  		set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
